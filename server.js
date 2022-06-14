@@ -55,7 +55,7 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
 });
 
 //route Create restaurant
-app.post("/api/v1/restaurants/:id", async (req, res) => {
+app.post("/api/v1/restaurants/", async (req, res) => {
   //console.log(req.body);
   try {
     const results = await db.query(
