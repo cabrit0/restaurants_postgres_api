@@ -36,21 +36,17 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
     ]);
     //console.log(results);
 
-    const reviews = await db.query("SELECT * FROM reviews WHERE id=$1", [
-      req.params.id,
-    ]);
-
-    if (results.rows.length <= 0 || results.rows.length > results.rows.length) {
-      res.status(404).json({
-        status: "not found",
-      });
-    }
+    const reviews = await db.query(
+      "select * from reviews where restaurant_id = $1",
+      [req.params.id]
+    );
+    //console.log(reviews);
 
     res.status(200).json({
       status: "success",
       results: results.rows.length,
       data: {
-        restaurant: results.rows,
+        restaurant: results.rows[0],
         reviews: reviews.rows,
       },
     });
