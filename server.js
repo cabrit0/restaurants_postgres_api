@@ -36,6 +36,10 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
     ]);
     //console.log(results);
 
+    const reviews = await db.query("SELECT * FROM reviews WHERE id=$1", [
+      req.params.id,
+    ]);
+
     if (results.rows.length <= 0 || results.rows.length > results.rows.length) {
       res.status(404).json({
         status: "not found",
@@ -47,6 +51,7 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
       results: results.rows.length,
       data: {
         restaurant: results.rows,
+        reviews: reviews.rows,
       },
     });
   } catch (error) {
